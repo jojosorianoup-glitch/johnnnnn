@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIHAM NA SANA MAKATULONG SA PAG IBSAN NG IYONG NARARAMDAMAN</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { 
+      background: linear-gradient(135deg, #0f172a, #1e1b4b); 
+      color: #f8fafc; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      margin: 0; 
+      padding: 20px;
+    }
+    .card { 
+      background: #1e293b; 
+      border: 1px solid #3730a3; 
+      padding: 2.5rem; 
+      border-radius: 16px; 
+      width: 100%; 
+      max-width: 450px; 
+      text-align: center; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+    }
+    h2 { color: #f43f5e; margin-top: 0; font-size: 1.8rem; }
+    p { color: #cbd5e1; font-size: 1rem; line-height: 1.5; }
+    input { 
+      width: 100%; 
+      padding: 12px; 
+      margin-top: 15px; 
+      border-radius: 8px; 
+      border: 1px solid #475569; 
+      background: #0f172a; 
+      color: #fff; 
+      outline: none; 
+      font-size: 1rem;
+    }
+    input:focus { border-color: #f43f5e; }
+    button { 
+      background: #e11d48; 
+      color: white; 
+      border: none; 
+      padding: 12px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      margin-top: 15px; 
+      font-weight: bold; 
+      width: 100%; 
+      font-size: 1rem; 
+      transition: background 0.2s; 
+    }
+    button:hover { background: #be123c; }
+    .hidden { display: none; }
+    .quote-box { 
+      background: #0f172a; 
+      padding: 20px; 
+      border-radius: 10px; 
+      border-left: 4px solid #f43f5e; 
+      margin: 20px 0; 
+      font-style: italic; 
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .badge {
+      display: inline-block;
+      background: #312e81;
+      color: #a5b4fc;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Entry Screen -->
+  <div id="entry-screen">
+    <h2>Halika at Pagmasdan mo ang mga Liham</h2>
+    <p>Sana makatulong ang mga liham na ito sa iyong nararamdaman, aking kaibigan.
+    <input type="text" id="user-name" placeholder="Ilagay ang iyong pangalan...">
+    <button onclick="enterSite()">Pindutin Ako.
+  </div>
+
+  <!-- Main Content Screen -->
+  <div id="main-screen" class="hidden">
+    <span class="badge" id="category-badge">Realization</span>
+    <h3 id="greeting-title" style="color: #f43f5e; margin-bottom: 5px;"></h3>
+    <div class="quote-box" id="quote-display"></div>
+    <button onclick="getNewQuote()">Buksan mo pa ang mga Liham.
+  </div>
+</div>
+
+<script>
+  const messages = [
+    { type: "Liham para sa Pag-ibig", text: "Sana mapunta ka sa tamang tao na magmamahal at makakaintindi sayo nang walang pag aalinlanggan."},
+    { type: "Liham para sa Sarili", text: "Ang paagmamahal sa sarili ay kailanman hindi mali, dahil ang nagmamahal ay mas mahal pa ang sarili."},
+    { type: "Liham para sa aking Kaibigan", text: "Ang buhay ay masyadong malawak para magkulong sa isang sulok, kaya't subukan nating lumabas at maglakbay sa mundong puno ng taong nagmamahal sa atin."},
+    
+  ];
+
+  let currentUserName = "";
+
+  function enterSite() {
+    const inputField = document.getElementById('user-name');
+    currentUserName = inputField.value.trim();
+
+    if (!currentUserName) {
+      alert("Please enter your name first!");
+      return;
+    }
+
+    document.getElementById('entry-screen').classList.add('hidden');
+    document.getElementById('main-screen').classList.remove('hidden');
+    
+    document.getElementById('greeting-title').innerText = "Kamusta, " + currentUserName + "! Narito ang mga Liham para sa iyo, sana makatulong ito para maibsan ang iyong nararamdaman.",
+    getNewQuote();
+  }
+
+  function getNewQuote() {
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    const selected = messages[randomIndex];
+
+    document.getElementById('category-badge').innerText = selected.type;
+    document.getElementById('quote-display').innerText = '"' + selected.text + '"';
+  }
+</script>
+
+</body>
+</html>
